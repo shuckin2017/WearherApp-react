@@ -1,10 +1,10 @@
 {
-  "name": "WearherApp-react",
+  "name": "WeatherApp-react",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "nodemon index.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm start\" \"npm run client\""
   },
