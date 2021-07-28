@@ -1,5 +1,5 @@
 import express from 'express';
-import mogoose from 'mongoose';
+import mongoose from 'mongoose';
 import Clients from './modules/Clients.js';
 
 const PORT = process.env.PORT || 5000;
@@ -7,15 +7,21 @@ const DB_URL = 'mongodb+srv://admin:SestO910@cluster0.tzp5i.mongodb.net/myFirstD
 
 const app = express();
 
-app.get('/', async (req, res) => {
-    const { fullname, phone, email } = req.body;
-    const clients = await Clients.create({fullname, phone, email});
-    res.status(200).json(`Server started on port ${PORT}...`)
+app.use(express.json());
+
+app.post('/', async (req, res) => {
+    try {
+        const {fullname, phone, email} = req.body;
+        const clients = await Clients.create({fullname, phone, email});
+        res.json(clients);
+    } catch (e) {
+        res.status(500).json(e)
+    }
 })
 
 async function startApp(){
     try {
-        await  mogoose.connect(DB_URL, {
+        await  mongoose.connect(DB_URL, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         })
